@@ -29,7 +29,7 @@ public class ContadorDeLetras {
      *            fichero de texto cuyo contenido será analizado.
      */
     public ContadorDeLetras(File fichero) {
-        // TODO
+            this.fichero = fichero;
     }
 
     /**
@@ -48,7 +48,11 @@ public class ContadorDeLetras {
      */
     public int[] frecuencias() throws FileNotFoundException {
         if (frecuencias == null) {
-            // TODO
+            if (this.fichero.exists() && this.fichero.canRead()){
+                //  TODO
+            } else {
+                throw new FileNotFoundException();
+            }
         }
         return frecuencias;
     }
