@@ -2,6 +2,8 @@ package es.unizar.eina.vv6f.practica3;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.Normalizer;
+import java.util.Scanner;
 
 /**
  * Clase para el análisis de la frecuencia de aparición de letras del alfabeto español en un
@@ -32,6 +34,15 @@ public class ContadorDeLetras {
             this.fichero = fichero;
     }
 
+    public String quitarAcento(String input){
+        //normaliza el texto y convertir los caracteres a su forma base
+        String output = Normalizer.normalize(input, Normalizer.Form.NFD);
+        //expresión regular para eliminar todos los caracteres diacríticos (como las tildes, diéresis y acentos circunflejos)
+        output = output.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+        //eliminar todos los caracteres que no sean ASCII
+        output = output.replaceAll("[^\\p{ASCII}]", "");
+        return output;
+    }
     /**
      * Si no ha sido analizado ya, analiza el contenido del fichero de texto asociado a este
      * objeto en el constructor. Devuelve un vector de 27 componentes con las frecuencias
@@ -49,7 +60,20 @@ public class ContadorDeLetras {
     public int[] frecuencias() throws FileNotFoundException {
         if (frecuencias == null) {
             if (this.fichero.exists() && this.fichero.canRead()){
-                //  TODO
+                frecuencias = new int[27];
+                Scanner input = new Scanner(this.fichero);
+                while (input.hasNextLine()) {
+                    String line = quitarAcento(input.nextLine().toLowerCase());
+                    for(int posicion = 0; posicion < line.length(); posicion++){
+                        char letra = line.charAt(posicion);
+                        if(letra == 'ñ' || letra == 'Ñ'){
+                            frecuencias[26]++;
+                        } else if ('a' <= letra && letra <= 'z') {
+                            frecuencias[letra - 'a']++;
+                        }
+                    }
+                }
+                input.close();
             } else {
                 throw new FileNotFoundException();
             }
