@@ -1,5 +1,8 @@
 package es.unizar.eina.vv6f.practica3;
 
+import java.io.File;
+import java.util.Scanner;
+
 /**
  * Programa Java que, al iniciar su ejecución, solicita al usuario el nombre de un fichero de texto.
  * A continuación, si el fichero existe y se puede leer, muestra en la salida estándar una lista de
@@ -31,6 +34,23 @@ public class Main {
      *            no utilizado.
      */
     public static void main(String[] args) {
-        // TODO
+        Scanner input = new Scanner(System.in);
+        System.out.println("Escriba el nombre de un fichero de texto: (ejemplo.txt)");
+        String path = input.next();
+
+        try{
+            ContadorDeLetras contadorDeLetras = new ContadorDeLetras(new File("src/main/res/" + path));
+            int[] contador = contadorDeLetras.frecuencias();
+            for(int i = 0; i < 26; i++){
+                if(i == 14){
+                    System.out.format(FORMATO_SALIDA_FRECUENCIAS, 'Ñ', contador[26]);
+                } else {
+                    System.out.format(FORMATO_SALIDA_FRECUENCIAS, 'A' + i, contador[i]);
+                }
+
+            }
+        } catch (Exception e){
+            System.out.println("El fichero escrito no es válido");
+        }
     }
 }

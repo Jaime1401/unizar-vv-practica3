@@ -14,7 +14,7 @@ class ContadorDeLetrasTest {
     private static final int[] QUIJOTE_ARRAY = new int[]{200495,24147,59436,87237,229189,7581,17225,19920,90075,10530,0,89141,44658,108441,162514,35465,32483,100954,125727,61749,79559,17855,2,377,25115,6491,4241};
 
     @Test
-    void ficheroVacio(){
+    void ficheroVacio() throws FileNotFoundException{
         ContadorDeLetras contadorDeLetras = new ContadorDeLetras(new File("src/main/res/vacio.txt"));
         int[] arrayVacio = new int[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
         assertArrayEquals(arrayVacio, contadorDeLetras.frecuencias());
@@ -40,54 +40,54 @@ class ContadorDeLetrasTest {
     }
 
     @Test
-    void casoMayusculaYMinusculaSinAcento(){
+    void casoMayusculaYMinusculaSinAcento() throws FileNotFoundException{
         ContadorDeLetras contadorDeLetras = new ContadorDeLetras(new File("src/main/res/MayMinSinAcento.txt"));
         int[] arrayAComprobar = new int[]{2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0};
         assertArrayEquals(arrayAComprobar, contadorDeLetras.frecuencias());
     }
 
     @Test
-    void casoñÑ(){
+    void casoñÑ() throws FileNotFoundException{
         ContadorDeLetras contadorDeLetras = new ContadorDeLetras(new File("src/main/res/ñÑ.txt"));
         int[] arrayAComprobar = new int[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2};
         assertArrayEquals(arrayAComprobar, contadorDeLetras.frecuencias());
     }
 
     @Test
-    void casoMayusculaYMinusculaConAcento(){
+    void casoMayusculaYMinusculaConAcento() throws FileNotFoundException{
         ContadorDeLetras contadorDeLetras = new ContadorDeLetras(new File("src/main/res/MayMinConAcento.txt"));
         int[] arrayAComprobar = new int[]{8,0,0,0,8,0,0,0,8,0,0,0,0,0,8,0,0,0,0,0,8,0,0,0,0,0,0};
         assertArrayEquals(arrayAComprobar, contadorDeLetras.frecuencias());
     }
 
     @Test
-    void casoCaracteresEspeciales(){
+    void casoCaracteresEspeciales() throws FileNotFoundException{
         ContadorDeLetras contadorDeLetras = new ContadorDeLetras(new File("src/main/res/CaractEspeciales.txt"));
-        int[] arrayAComprobar = new int[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        int[] arrayAComprobar = new int[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0};
         assertArrayEquals(arrayAComprobar, contadorDeLetras.frecuencias());
     }
 
     @Test
-    void casoNumeros(){
+    void casoNumeros() throws FileNotFoundException{
         ContadorDeLetras contadorDeLetras = new ContadorDeLetras(new File("src/main/res/Numeros.txt"));
         int[] arrayAComprobar = new int[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
         assertArrayEquals(arrayAComprobar, contadorDeLetras.frecuencias());
     }
 
     @Test
-    void casoHamlet(){
+    void casoHamlet() throws FileNotFoundException{
         ContadorDeLetras contadorDeLetras = new ContadorDeLetras(new File("src/main/res/hamlet.txt"));
         assertArrayEquals(HAMLET_ARRAY, contadorDeLetras.frecuencias());
     }
 
     @Test
-    void casoQuijote(){
+    void casoQuijote() throws FileNotFoundException{
         ContadorDeLetras contadorDeLetras = new ContadorDeLetras(new File("src/main/res/quijote.txt"));
         assertArrayEquals(QUIJOTE_ARRAY, contadorDeLetras.frecuencias());
     }
 
     @Test
-    void casoRegenta(){
+    void casoRegenta() throws FileNotFoundException{
         ContadorDeLetras contadorDeLetras = new ContadorDeLetras(new File("src/main/res/regenta.txt"));
         assertArrayEquals(REGENTA_ARRAY, contadorDeLetras.frecuencias());
     }

@@ -35,12 +35,17 @@ public class ContadorDeLetras {
     }
 
     public String quitarAcento(String input){
+        //Reemplazamos las ñ y Ñ por el caracter ASCII 1 y 2 respectivamente. Es necesario porque sino al normalizar, las
+        //ñ/Ñ se transforman en n/N
+        input = input.replace("ñ", "\01").replace("Ñ", "\02");
         //normaliza el texto y convertir los caracteres a su forma base
         String output = Normalizer.normalize(input, Normalizer.Form.NFD);
         //expresión regular para eliminar todos los caracteres diacríticos (como las tildes, diéresis y acentos circunflejos)
         output = output.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
         //eliminar todos los caracteres que no sean ASCII
-        output = output.replaceAll("[^\\p{ASCII}]", "");
+        //output = output.replaceAll("[^\\p{ASCII}]", "");
+
+        output = output.replace("\01", "ñ").replace("\02", "Ñ");
         return output;
     }
     /**
@@ -68,7 +73,9 @@ public class ContadorDeLetras {
                         char letra = line.charAt(posicion);
                         if(letra == 'ñ' || letra == 'Ñ'){
                             frecuencias[26]++;
-                        } else if ('a' <= letra && letra <= 'z') {
+                        } else if(letra == 'º'){
+                            frecuencias[14]++;
+                        }else if ('a' <= letra && letra <= 'z') {
                             frecuencias[letra - 'a']++;
                         }
                     }
