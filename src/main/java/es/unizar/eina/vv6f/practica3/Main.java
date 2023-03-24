@@ -34,21 +34,20 @@ public class Main {
      *            no utilizado.
      */
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Escriba el nombre de un fichero de texto: (ejemplo.txt)");
-        String path = input.next();
-
         try{
-            ContadorDeLetras contadorDeLetras = new ContadorDeLetras(new File("src/main/res/" + path));
+            ContadorDeLetras contadorDeLetras = new ContadorDeLetras(new File("src/main/res/" + args[0]));
             int[] contador = contadorDeLetras.frecuencias();
+            System.out.println("Nombre de un fichero de texto: ");
             for(int i = 0; i < 26; i++){
                 if(i == 14){
                     System.out.format(FORMATO_SALIDA_FRECUENCIAS, 'Ñ', contador[26]);
+                    System.out.format(FORMATO_SALIDA_FRECUENCIAS, 'O', contador[14]);
                 } else {
                     System.out.format(FORMATO_SALIDA_FRECUENCIAS, 'A' + i, contador[i]);
                 }
 
             }
+            System.out.println("");
         } catch (Exception e){
             System.out.println("El fichero escrito no es válido");
         }
