@@ -1,5 +1,7 @@
 package es.unizar.eina.vv6f.practica3;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
@@ -10,10 +12,29 @@ import java.util.Scanner;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
+    private static PrintStream out;
+    private static PrintStream err;
+    private static InputStream in;
+
+    @BeforeAll
+    public static void setUp() {
+        out = System.out;
+        err = System.err;
+        in = System.in;
+    }
+
+    @AfterAll
+    public static void tearDown() {
+        System.setOut(out);
+        System.setErr(err);
+        System.setIn(in);
+    }
+
     @Test
     public void testHamlet() throws IOException {
-        String []p = {"hamlet.txt"};
 
+        ByteArrayInputStream myIn = new ByteArrayInputStream("hamlet.txt".getBytes());
+        System.setIn(myIn);
         ByteArrayOutputStream result = new ByteArrayOutputStream();
         System.setOut(new PrintStream(result));
 
@@ -21,7 +42,7 @@ class MainTest {
         String nomArchive = "archiveAux.txt";
         OutputStream archivo = new FileOutputStream(nomArchive);
 
-        Main.main(p);
+        Main.main(null);
 
         // Escribir lo que se muestra en la terminal en el archivo
         archivo.write(result.toByteArray());
@@ -40,7 +61,8 @@ class MainTest {
     }
     @Test
     public void testQuijote() throws IOException {
-        String []p = {"quijote.txt"};
+        ByteArrayInputStream myIn = new ByteArrayInputStream("quijote.txt".getBytes());
+        System.setIn(myIn);
 
         ByteArrayOutputStream result = new ByteArrayOutputStream();
         System.setOut(new PrintStream(result));
@@ -49,7 +71,7 @@ class MainTest {
         String nomArchive = "archiveAux.txt";
         OutputStream archivo = new FileOutputStream(nomArchive);
 
-        Main.main(p);
+        Main.main(null);
 
         // Escribir lo que se muestra en la terminal en el archivo
         archivo.write(result.toByteArray());
@@ -69,7 +91,8 @@ class MainTest {
 
     @Test
     public void testRegenta() throws IOException {
-        String []p = {"regenta.txt"};
+        ByteArrayInputStream myIn = new ByteArrayInputStream("regenta.txt".getBytes());
+        System.setIn(myIn);
 
         ByteArrayOutputStream result = new ByteArrayOutputStream();
         System.setOut(new PrintStream(result));
@@ -78,7 +101,7 @@ class MainTest {
         String nomArchive = "archiveAux.txt";
         OutputStream archivo = new FileOutputStream(nomArchive);
 
-        Main.main(p);
+        Main.main(null);
 
         // Escribir lo que se muestra en la terminal en el archivo
         archivo.write(result.toByteArray());

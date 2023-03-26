@@ -1,6 +1,8 @@
 package es.unizar.eina.vv6f.practica3;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 /**
@@ -35,9 +37,12 @@ public class Main {
      */
     public static void main(String[] args) {
         try{
-            ContadorDeLetras contadorDeLetras = new ContadorDeLetras(new File("src/main/res/" + args[0]));
-            int[] contador = contadorDeLetras.frecuencias();
             System.out.println("Nombre de un fichero de texto: ");
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            String fichero = br.readLine();
+            ContadorDeLetras contadorDeLetras = new ContadorDeLetras(new File("src/main/res/" + fichero));
+            int[] contador = contadorDeLetras.frecuencias();
+
             for(int i = 0; i < 26; i++){
                 if(i == 14){
                     System.out.format(FORMATO_SALIDA_FRECUENCIAS, 'Ñ', contador[26]);
